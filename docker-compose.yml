@@ -5,8 +5,9 @@ services:
       dockerfile: Dockerfile
     image: ratterscanner/cdn:latest
     container_name: ratterscanner_cdn
+    env_file:
+      - .env
     ports:
-      - "80:80"
+      - "${HOST_PORT:-8080}:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:80
