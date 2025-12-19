@@ -12,16 +12,16 @@ The mount can then handle other logic like RAID setup's.
 The database should be accessible by multiple server's at once.
 
 # Next to do
-- Add tests
-- Add retrieve / upload logic
-- Add token checks for retrieve logic
-- Add database connection for info related about files
+- Add upload logic
+- Add more tests
+- Add database connection for info related about files and future token checks
+- Add token checks for upload logic
+- Add CI/CD workflow
 
 # How to test / run
 - To be added.
-- Endpoints should be split from their Handlers, so the logic of the handlers can be tested individually.
 
 # CI/CD pipeline
-- To be added.
 - Merge's or commits should trigger an update of the currently used CDN.
 - This will probably be managed by another internal service, also written in c#.
+- To be added.
