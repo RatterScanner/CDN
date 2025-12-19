@@ -1,0 +1,12 @@
+services:
+  cdn:
+    build:
+      context: ./cdn
+      dockerfile: Dockerfile
+    image: ratterscanner/cdn:latest
+    container_name: ratterscanner_cdn
+    ports:
+      - "80:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80

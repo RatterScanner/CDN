@@ -1,0 +1,6 @@
+@cdn_HostAddress = http://localhost:5132
+
+GET {{cdn_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

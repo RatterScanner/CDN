@@ -1,0 +1,3 @@
+cdn/bin/
+cdn/obj/
+*.env
