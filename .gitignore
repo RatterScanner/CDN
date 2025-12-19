@@ -1,4 +1,4 @@
-cdn/bin/
-cdn/obj/
+**/bin/
+**/obj/
 .vscode/
 *.env
