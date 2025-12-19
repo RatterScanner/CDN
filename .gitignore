@@ -1,3 +1,4 @@
 cdn/bin/
 cdn/obj/
+.vscode/
 *.env

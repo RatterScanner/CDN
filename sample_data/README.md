@@ -1,0 +1,1 @@
+This folder contains sample data mounted into the container at /storage for local development. And actually, this README already is a sample file!
