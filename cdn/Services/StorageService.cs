@@ -8,42 +8,53 @@ public interface IStorageService
 
 public class StorageService : IStorageService
 {
-    private const string STORAGE_PATH = "/storage";
+    private readonly string storagePath;
 
-    public bool Exists(string name)
+    public StorageService(string storagePath)
     {
-        var full = ResolvePath(name);
-        return full is not null && File.Exists(full);
+        if (string.IsNullOrWhiteSpace(storagePath))
+            throw new ArgumentException("Storage path must be provided.", nameof(storagePath));
+
+        this.storagePath = Path.GetFullPath(storagePath);
+        if (!Directory.Exists(this.storagePath))
+            Directory.CreateDirectory(this.storagePath);
     }
 
-    public Stream OpenRead(string name)
+    public bool Exists(string aName)
     {
-        var full = ResolvePath(name);
-        if (full is null) throw new FileNotFoundException();
+        var full = ResolvePath(aName);
+        return full != null && File.Exists(full);
+    }
+
+    public Stream OpenRead(string aName)
+    {
+        var full = ResolvePath(aName) ?? throw new FileNotFoundException($"File '{aName}' not found or access denied.");
         return File.OpenRead(full);
     }
 
-    // Resolve the requested filename safely to prevent path traversal.
-    // Returns full path under _storagePath or null if invalid/not allowed.
-    private string? ResolvePath(string name)
+    // Resolves the requested file safely inside the storage path.
+    // Returns null if the path is invalid or tries to escape the storage root.
+    private string? ResolvePath(string aName)
     {
-        if (string.IsNullOrWhiteSpace(name)) return null;
-
-        // reject any path-separator characters to keep requests as single filenames
-        if (name.IndexOf(Path.DirectorySeparatorChar) >= 0 || name.IndexOf(Path.AltDirectorySeparatorChar) >= 0)
-            return null;
+        if (string.IsNullOrWhiteSpace(aName)) return null;
 
         // Combine and normalize
-        var candidate = Path.Combine(STORAGE_PATH, name);
+        var candidate = Path.Combine(storagePath, aName);
         try
         {
             var full = Path.GetFullPath(candidate);
-            var baseFull = Path.GetFullPath(STORAGE_PATH);
-            if (!full.StartsWith(baseFull + Path.DirectorySeparatorChar) && !string.Equals(full, baseFull, StringComparison.OrdinalIgnoreCase))
+
+            // Ensure it stays under the storage root
+            var relative = Path.GetRelativePath(storagePath, full);
+            if (relative.StartsWith("..") || Path.IsPathRooted(relative))
                 return null;
+
             return full;
         }
-        catch
+        catch (Exception ex) when (
+            ex is ArgumentException ||
+            ex is NotSupportedException ||
+            ex is PathTooLongException)
         {
             return null;
         }

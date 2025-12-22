@@ -5,11 +5,11 @@ namespace cdn.Handlers.Get;
 
 public class FilesHandler
 {
-    private readonly IStorageService _storage;
+    private readonly IStorageService storage;
 
-    public FilesHandler(IStorageService storage)
+    public FilesHandler(IStorageService aStorage)
     {
-        _storage = storage;
+        storage = aStorage;
     }
 
     // Blacklist reserved paths so file-serving doesn't shadow real endpoints.
@@ -18,24 +18,24 @@ public class FilesHandler
         "ping"
     };
 
-    public IResult Get(string name, HttpContext ctx)
+    public IResult Get(string aName, HttpContext aCTX)
     {
         // If the client asked for a path that maps to other endpoints, do not serve file.
-        if (string.IsNullOrWhiteSpace(name) || ReservedRootPaths.Contains(name))
+        if (string.IsNullOrWhiteSpace(aName) || ReservedRootPaths.Contains(aName))
         {
             return Results.NotFound();
         }
 
-        if (!_storage.Exists(name)) return Results.NotFound();
-        var stream = _storage.OpenRead(name);
+        if (!storage.Exists(aName)) return Results.NotFound();
+        var stream = storage.OpenRead(aName);
 
         // Detect content type by file extension when possible
         var provider = new FileExtensionContentTypeProvider();
-        if (!provider.TryGetContentType(name, out var contentType))
+        if (!provider.TryGetContentType(aName, out var contentType))
         {
             contentType = "application/octet-stream";
         }
 
-        return Results.File(stream, contentType: contentType, fileDownloadName: name);
+        return Results.File(stream, contentType: contentType, fileDownloadName: aName);
     }
 }
