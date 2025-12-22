@@ -25,7 +25,9 @@ build:
 test:
   stage: test
   script:
+    - cd /builds/ratterscanner/CDN
     - cp .env.example .env
+    - ls -la
     - ./run_tests.sh
 
 deploy:
@@ -37,4 +39,5 @@ deploy:
   tags:
     - production
   script:
+    - cd /builds/ratterscanner/CDN
     - ./deploy.sh
