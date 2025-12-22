@@ -27,6 +27,8 @@ The following commands should be ran in the project root directory.
 1. `./run_tests.sh`
 ### Build and launch:
 1. `docker compose up --build`
+### Deploy on production:
+1. `./deploy.sh`
 
 # How to contribute
 Please read: Do not contribute just yet. As I am still setting up the base for this project. Afterwards contributions are greatly appreciated! :D
