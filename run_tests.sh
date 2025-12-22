@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 # On any error, exit with non-zero code
-set -euo pipefail
+set -e
 
 # Build the Docker image
 docker build -t ratter-scanner-cdn-tests -f tests/Dockerfile .
