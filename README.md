@@ -4,15 +4,12 @@ This project is a rewrite of our existing CDN.
 
 This is also a test project, and allows our team to get more insight in how we would like to do a recode of our other services.
 
-Please do not contribute just yet. As I am still setting up the base for this project. Afterwards contributions are greatly appreciated! :D
-
 When properly configured the CDN should be able to run multiple instances of itself, without causing issues. This allows a high availability setup.
 Files info should be merged by mounting 1 dedicated storage mount on a specified folder that is mounted in the docker container.
 The mount can then handle other logic like RAID setup's.
 The database should be accessible by multiple server's at once.
 
 # How to test / run
----
 The project is tested and hosted on a linux arch and a linux ubuntu installation. \
 You might have to slightly adjust some commands to get them working on other OS types.
 
@@ -30,6 +27,20 @@ The following commands should be ran in the project root directory.
 1. `./run_tests.sh`
 ### Build and launch:
 1. `docker compose up --build`
+
+# How to contribute
+Please read: Do not contribute just yet. As I am still setting up the base for this project. Afterwards contributions are greatly appreciated! :D
+
+If you have a suggestion that would make this better. Open a [github issue](https://github.com/RatterScanner/CDN/issues/new), or let us know in our [Discord server](https://discord.gg/ratterscanner).
+
+Feel like solving some issue's or adding a new feature yourself? Great! We appreciate the help.
+
+1. Fork the Project.
+1. Create your feature branch
+1. Commit your changes to the newly created feature branch
+1. Push to the branch
+1. Open a pull request
+
 
 # CI/CD pipeline
 - Merge's or commits should trigger an update of the currently used CDN.
