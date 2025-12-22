@@ -13,12 +13,12 @@ The database should be accessible by multiple server's at once.
 
 # How to test / run
 ---
-The project is tested and hosted on a linux arch and a linux ubuntu installation.
+The project is tested and hosted on a linux arch and a linux ubuntu installation. \
 You might have to slightly adjust some commands to get them working on other OS types.
 
 ### How to get your own copy running
 
-1. Get the complete source code:
+1. Get the complete source code: \
     `git clone https://github.com/RatterScanner/CDN.git`
 
 1. Copy the content of `.env.example` to `.env`. Change the env to fit your requirements.
@@ -27,9 +27,9 @@ You might have to slightly adjust some commands to get them working on other OS 
 
 The following commands should be ran in the project root directory.
 ### Run tests:
-`./run_tests.sh`
+1. `./run_tests.sh`
 ### Build and launch:
-`docker compose up --build`
+1. `docker compose up --build`
 
 # CI/CD pipeline
 - Merge's or commits should trigger an update of the currently used CDN.
