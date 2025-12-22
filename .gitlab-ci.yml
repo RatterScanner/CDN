@@ -19,11 +19,13 @@ before_script:
 build:
   stage: build
   script:
+    - cp .env.example .env
     - docker compose build
 
 test:
   stage: test
   script:
+    - cp .env.example .env
     - ./run_tests.sh
 
 deploy:
