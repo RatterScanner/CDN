@@ -45,6 +45,7 @@ Feel like solving some issue's or adding a new feature yourself? Great! We appre
 
 
 # CI/CD pipeline
+https://gitlab.com/ratterscanner/CDN
 - Merge's or commits should trigger an update of the currently used CDN.
 - This will probably be managed by another internal service, also written in c#.
 - To be added.
