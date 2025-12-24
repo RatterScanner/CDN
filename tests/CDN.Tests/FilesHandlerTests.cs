@@ -22,9 +22,7 @@ public class FilesHandlerTests
     }
 
     // Base path to sample files
-    private static string SampleDataPath => Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../..", "sample_data"));
-
-    private static FilesHandler CreateHandler() => new FilesHandler(new StorageService(SampleDataPath));
+    private static FilesHandler CreateHandler() => new FilesHandler(new StorageService());
 
     // Test for empty file name
     [Fact]
@@ -70,9 +68,9 @@ public class FilesHandlerTests
     public async Task Get_KnownExtension_ReturnsFileResultWithCorrectContentType()
     {
         var fileName = "sample.txt";
-        var filePath = Path.Combine(SampleDataPath, fileName);
+        var filePath = Path.Combine(StorageService.STORAGE_PATH, fileName);
         var expectedBytes = await File.ReadAllBytesAsync(filePath);
-
+        
         var handler = CreateHandler();
         var ctx = CreateContext();
 
@@ -94,7 +92,7 @@ public class FilesHandlerTests
     public async Task Get_UnknownExtension_DefaultsToOctetStream()
     {
         var fileName = "file.unknownext";
-        var filePath = Path.Combine(SampleDataPath, fileName);
+        var filePath = Path.Combine(StorageService.STORAGE_PATH, fileName);
         var expectedBytes = await File.ReadAllBytesAsync(filePath);
 
         var handler = CreateHandler();

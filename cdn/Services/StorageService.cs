@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+
 namespace cdn.Services;
 
 public interface IStorageService
@@ -8,16 +11,13 @@ public interface IStorageService
 
 public class StorageService : IStorageService
 {
-    private readonly string storagePath;
+    public const string STORAGE_PATH = "/storage";
 
-    public StorageService(string storagePath)
+    public StorageService()
     {
-        if (string.IsNullOrWhiteSpace(storagePath))
-            throw new ArgumentException("Storage path must be provided.", nameof(storagePath));
-
-        this.storagePath = Path.GetFullPath(storagePath);
-        if (!Directory.Exists(this.storagePath))
-            Directory.CreateDirectory(this.storagePath);
+        // Ensure the directory exists
+        if (!Directory.Exists(STORAGE_PATH))
+            Directory.CreateDirectory(STORAGE_PATH);
     }
 
     public bool Exists(string aName)
@@ -32,31 +32,25 @@ public class StorageService : IStorageService
         return File.OpenRead(full);
     }
 
-    // Resolves the requested file safely inside the storage path.
-    // Returns null if the path is invalid or tries to escape the storage root.
-    private string? ResolvePath(string aName)
+    // Resolves the requested file safely inside the storage path
+    private static string? ResolvePath(string aName)
     {
         if (string.IsNullOrWhiteSpace(aName)) return null;
 
-        // Combine and normalize
-        var candidate = Path.Combine(storagePath, aName);
+        var candidate = Path.Combine(STORAGE_PATH, aName);
         try
         {
             var full = Path.GetFullPath(candidate);
 
             // Ensure it stays under the storage root
-            var relative = Path.GetRelativePath(storagePath, full);
+            var relative = Path.GetRelativePath(STORAGE_PATH, full);
             if (relative.StartsWith("..") || Path.IsPathRooted(relative))
                 return null;
 
             return full;
         }
-        catch (Exception ex) when (
-            ex is ArgumentException ||
-            ex is NotSupportedException ||
-            ex is PathTooLongException)
-        {
-            return null;
-        }
+        catch (ArgumentException) { return null; }
+        catch (NotSupportedException) { return null; }
+        catch (PathTooLongException) { return null; }
     }
 }

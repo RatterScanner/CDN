@@ -1,4 +1,7 @@
 # About The Project
+This project is maintained using GitLab.
+[Click here to go the GitLab repo](https://gitlab.com/ratterscanner/CDN)
+---
 This is the CDN that will be used for Ratter Scanner's file storing.
 This project is a rewrite of our existing CDN.
 
@@ -10,13 +13,13 @@ The mount can then handle other logic like RAID setup's.
 The database should be accessible by multiple server's at once.
 
 # How to test / run
-The project is tested and hosted on a linux arch and a linux ubuntu installation. \
+The project is tested and hosted using both linux arch and linux ubuntu installations. \
 You might have to slightly adjust some commands to get them working on other OS types.
 
 ### How to get your own copy running
 
 1. Get the complete source code: \
-    `git clone https://github.com/RatterScanner/CDN.git`
+    `git clone git@gitlab.com:ratterscanner/CDN.git`
 
 1. Copy the content of `.env.example` to `.env`. Change the env to fit your requirements.
 
@@ -27,13 +30,11 @@ The following commands should be ran in the project root directory.
 1. `./run_tests.sh`
 ### Build and launch:
 1. `docker compose up --build`
-### Deploy on production:
-1. `./deploy.sh`
 
 # How to contribute
 Please read: Do not contribute just yet. As I am still setting up the base for this project. Afterwards contributions are greatly appreciated! :D
 
-If you have a suggestion that would make this better. Open a [github issue](https://github.com/RatterScanner/CDN/issues/new), or let us know in our [Discord server](https://discord.gg/ratterscanner).
+If you have a suggestion that would make this better. Open a [Gitlab issue](https://gitlab.com/ratterscanner/CDN/-/issues), or let us know in our [Discord server](https://discord.gg/ratterscanner).
 
 Feel like solving some issue's or adding a new feature yourself? Great! We appreciate the help.
 
@@ -45,8 +46,7 @@ Feel like solving some issue's or adding a new feature yourself? Great! We appre
 
 
 # CI/CD pipeline
-https://gitlab.com/ratterscanner/CDN
-- Merge's or commits should trigger an update of the currently used CDN.
+- To be added.
 - This will probably be managed by another internal service, also written in c#.
 - To be added.
 
@@ -55,4 +55,4 @@ https://gitlab.com/ratterscanner/CDN
 - Add more tests
 - Add database connection for info related about files and future token checks
 - Add token checks for upload logic
-- Add CI/CD workflow
+- Expand on CI/CD workflow
